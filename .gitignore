@@ -34,3 +34,4 @@
 # Exclude bin
 **/bin/Debug/
 **/bin/Release/
+**/x64/*/
