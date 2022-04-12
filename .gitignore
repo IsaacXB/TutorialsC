@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Exclude bin
+**/bin/Debug/
+**/bin/Release/
