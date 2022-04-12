@@ -31,7 +31,12 @@
 *.out
 *.app
 
-# Exclude bin
+# Exclude bin and garbage folders for source control
 **/bin/Debug/
 **/bin/Release/
 **/x64/*/
+**/v17/*/
+TutorialsC/.vs/TutorialsC/v17/Browse.VC.db
+TutorialsC/.vs/TutorialsC/v17/Browse.VC.db-shm
+TutorialsC/.vs/TutorialsC/v17/Browse.VC.db-wal
+TutorialsC/.vs/TutorialsC/v17/Browse.VC.opendb
