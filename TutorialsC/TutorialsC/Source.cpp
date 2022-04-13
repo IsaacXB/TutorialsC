@@ -17,11 +17,21 @@ void printString(string s)
 	cout << s << endl;
 }
 
+//basic overload function example, with 1 parameter of type char
+void printString(char c)
+{
+	cout << c << endl;
+}
+
 //basic function that returns the sum of parameter 1 and parameter 2
 int sum(int a, int b)
 {
 	return a + b;
 }
+
+// declare function prototypes
+char getYesNo();
+void AskYesOrNoQuestion();
 
 int main()
 {
@@ -69,9 +79,31 @@ int main()
 	// print the value converted from int
 	printString(addedValue);
 
+	// Call a function that calls another function inside
+	AskYesOrNoQuestion();
+
 	//Pause console to see results
 	system("pause");
 
 
 
+}
+
+//prototype function implementation return char from input
+char getYesNo() {
+
+	printString("Please answer: y or n");
+
+	char response;
+	cin >> response;
+
+	return response;
+}
+
+//Asks user to enter y or n and prints the response to screen
+void AskYesOrNoQuestion() {
+
+	//call getYesNo function and assigned the returned value to response local variable
+	char response = getYesNo();
+	printString(response);
 }
