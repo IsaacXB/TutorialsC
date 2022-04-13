@@ -31,7 +31,10 @@ int sum(int a, int b)
 
 // declare function prototypes
 char getYesNo();
-void AskYesOrNoQuestion();
+void askYesOrNoQuestion();
+void nestedLoop3x();
+void ifElseExample();
+string fromIntToString(int value);
 
 int main()
 {
@@ -39,21 +42,8 @@ int main()
 	//std::cout << "You Died!\n";
 	cout << "You Died!" << endl;
 
-	int a = 1;
-	int b = 2;
-	
-	if (a < b)
-	{
-		cout << "a is less than b" << endl;
-	}
-	else if (a == b)
-	{
-		cout << "a is equal to b" << endl;
-	}
-	else
-	{
-		cout << "b is less than a" << endl;
-	}
+	//If Else Example
+	ifElseExample();
 
 	//call a function
 	printString();
@@ -62,25 +52,19 @@ int main()
 	printString("Overloaded");
 
 	//calls a function that returns a value and assigns it to a local variable
-	int result = sum(5,10);
+	int result = sum(5, 10);
 
-	//create stringstream variable to extract and insert data from an int to an string
-	stringstream ss;
-
-	// the << mean extract, used to read data from int variable
-	ss << result;
-
-	//create a string to hold the converted value from int to a string
-	string addedValue;
-
-	// the << symbol is used to insert the value to a string
-	ss >> addedValue;
+	//Function that converts an int to a string
+	string convertedValue = fromIntToString(result);
 
 	// print the value converted from int
-	printString(addedValue);
+	printString(convertedValue);
 
 	// Call a function that calls another function inside
-	AskYesOrNoQuestion();
+	askYesOrNoQuestion();
+
+	//3x Nested Loop example
+	nestedLoop3x();
 
 	//Pause console to see results
 	system("pause");
@@ -101,9 +85,68 @@ char getYesNo() {
 }
 
 //Asks user to enter y or n and prints the response to screen
-void AskYesOrNoQuestion() {
+void askYesOrNoQuestion() {
 
 	//call getYesNo function and assigned the returned value to response local variable
 	char response = getYesNo();
 	printString(response);
+}
+
+//Nested Loop for 3 iterations if 11 each, that prints each iteration value to screen
+//Nested Loops takes some time to complete, it affects performance, run time, usually you avoid nested loops
+void nestedLoop3x()
+{
+	int counter = 0;
+	for (int i=0; i<= 10; i++)
+	{
+		//cout << "i = " << i << "Total iterations = " << counter << endl;
+		//counter++;
+		for (int j = 0; j <= 10; j++)
+		{
+			//cout << "i = " << i << ", j = " << j <<  "Total iterations = " << counter << endl;
+			//counter++;
+			for (int k = 0; k <= 10; k++)
+			{
+				cout << "i = " << i << ", j = " << j << ", k = " << k << "Total iterations = " << counter << endl;
+				counter++;
+			}
+		}
+	}
+}
+
+// If-else if-else example, only 1 set of code will run, after the first condition is met, the others will be ignored
+void ifElseExample()
+{
+	int a = 1;
+	int b = 2;
+
+	if (a < b)
+	{
+		cout << "a is less than b" << endl;
+	}
+	else if (a == b)
+	{
+		cout << "a is equal to b" << endl;
+	}
+	else
+	{
+		cout << "b is less than a" << endl;
+	}
+}
+
+string fromIntToString(int value) {
+
+	//create stringstream variable to extract and insert data from an int to an string
+	stringstream ss;
+
+	// the << mean extract, used to read data from int variable
+	ss << value;
+
+	//create a string to hold the converted value from int to a string
+	string convertedValue;
+
+	// the << symbol is used to insert the value to a string
+	ss >> convertedValue;
+
+	return convertedValue;
 }
