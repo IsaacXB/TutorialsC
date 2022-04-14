@@ -30,6 +30,17 @@ void printString(float f)
 	cout << f << endl;
 }
 
+//basic overload function example, with 1 parameter of type int
+void printString(int i)
+{
+	cout << i << endl;
+}
+//basic overload function example, with 1 parameter of type int
+void printString(string s,int i)
+{
+	cout << s << i << endl;
+}
+
 //basic function that returns the sum of parameter 1 and parameter 2
 int sum(int a, int b)
 {
@@ -125,6 +136,64 @@ Dog::~Dog()
 }
 
 
+//Inheritance example - Parent Class
+class Animal
+{
+public:
+	//This constructor will always be called when creating child objects
+	//Parent constructor with no parameters will be called by default
+	Animal();
+	//Constructor overload with parameters
+	Animal(string name, int age, int numberOfLimbs);
+	string Name;
+	int Age;
+	int NumberOfLimbs;
+	void Report();
+private:
+};
+
+//Inheritance example - Child Class
+class Cat : public Animal
+{
+public:
+	Cat();
+	Cat(string name, int age, int numberOfLimbs);
+	void Speak();
+	~Cat();
+
+private:
+
+};
+
+Cat::Cat()
+{
+	printString("Cat is created");
+}
+
+// this declaration will avoid the default constructor from parent class
+Cat::Cat(string name, int age, int numberOfLimbs)
+	: Animal(name, age, numberOfLimbs)
+{
+	Speak();
+	Report();
+}
+
+// this declaration will call the default constructor from parent class, plus the overloaded constructor
+//Cat::Cat(string name, int age, int numberOfLimbs)
+//{
+//	Animal(name, age, numberOfLimbs);
+//	Speak();
+//}
+
+void Cat::Speak()
+{
+	printString("Miauu!");
+}
+
+Cat::~Cat()
+{
+}
+
 
 int main()
 {
@@ -176,7 +245,14 @@ int main()
 	//player.DisplayLocation();
 
 	//pointerExample();
-	Dog dog;
+	//class example - create instance
+	Animal animal;
+	//class example with overload - create instance with parameters
+	Animal animal2( "Koki", 8, 4 );
+	// child class instance from Animal
+	Cat cat;
+	// child class with parameters will use the overloaded constructor
+	Cat cat2("Mile", 6, 4);
 	//Pause console to see results
 	system("pause");
 
@@ -292,4 +368,27 @@ void pointerExample() {
 	// if you dereference the pointer by using the *, you will get the value
 	cout << "Pointer Value = " << *aPtr << endl;
 
+}
+
+Animal::Animal()
+{
+	Name = "Default";
+	Age = 1;
+	NumberOfLimbs = 4;
+	printString("An animal is born");
+	Report();
+}
+Animal::Animal(string name, int age, int numberOfLimbs):
+	Name(name), Age(age), NumberOfLimbs(numberOfLimbs)
+{
+	//Name = name;
+	//Age = age;
+	//NumberOfLimbs = numberOfLimbs;
+	printString("An animal is born");
+	Report();
+}
+void Animal::Report() {
+	printString("Name = "+Name);
+	printString("Age = ",Age);
+	printString("Number of Limbs= ", NumberOfLimbs);
 }
