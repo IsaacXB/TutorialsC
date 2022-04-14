@@ -2,7 +2,8 @@
 #include <iostream>
 // library to perform input/output operations to string streams
 #include <sstream>
-
+// string library
+#include <string>
 using namespace std;
 
 //basic function example
@@ -23,11 +24,30 @@ void printString(char c)
 	cout << c << endl;
 }
 
+//basic overload function example, with 1 parameter of type char
+void printString(float f)
+{
+	cout << f << endl;
+}
+
 //basic function that returns the sum of parameter 1 and parameter 2
 int sum(int a, int b)
 {
 	return a + b;
 }
+//enumerators, it's great for handling states
+enum PlayerStatus
+{
+	psCrouched,
+	psWalking,
+	psRunning
+};
+
+enum MovementStatus
+{
+	msCrouched,
+	msRunning
+};
 
 // declare function prototypes
 char getYesNo();
@@ -35,36 +55,87 @@ void askYesOrNoQuestion();
 void nestedLoop3x();
 void ifElseExample();
 string fromIntToString(int value);
+void UpdateMovementSpeed(PlayerStatus playerStatus, float& movementSpeed);
+
+
+
+//constants
+const float runSpeed = 800.0f;
+const float WalkSpeed = 500.0f;
+const float CrouchSpeed = 350.0f;
+
+//basic structure of my character
+struct LocationVector
+{
+	float x;
+	float y;
+	float z;
+};
+struct Player {
+	string name;
+	float health;
+	int level;
+	float damage;
+	LocationVector location = {0.0f,0.0f,0.0f };
+	void TakeDamage(float damage)
+	{
+		health -= damage;
+	}
+	void DisplayLocation()
+	{
+		cout << "X = " << location.x << ", Y = " << location.y << ", Z = " << location.z << endl;
+	}
+};
+
 
 int main()
 {
 	//using namespace std, the :: is not longer required for that library functions such as cout and endl
 	//std::cout << "You Died!\n";
-	cout << "You Died!" << endl;
+	//cout << "You Died!" << endl;
 
-	//If Else Example
-	ifElseExample();
+	////If Else Example
+	//ifElseExample();
 
-	//call a function
-	printString();
+	////call a function
+	//printString();
 
-	//calls the overloaded function with a parameter
-	printString("Overloaded");
+	////calls the overloaded function with a parameter
+	//printString("Overloaded");
 
-	//calls a function that returns a value and assigns it to a local variable
-	int result = sum(5, 10);
+	////calls a function that returns a value and assigns it to a local variable
+	//int result = sum(5, 10);
 
-	//Function that converts an int to a string
-	string convertedValue = fromIntToString(result);
+	////Function that converts an int to a string
+	//string convertedValue = fromIntToString(result);
 
-	// print the value converted from int
-	printString(convertedValue);
+	//// print the value converted from int
+	//printString(convertedValue);
 
-	// Call a function that calls another function inside
-	askYesOrNoQuestion();
+	//// Call a function that calls another function inside
+	//askYesOrNoQuestion();
 
-	//3x Nested Loop example
-	nestedLoop3x();
+	////3x Nested Loop example
+	//nestedLoop3x();
+
+	////Create an instance of player status enum
+	//PlayerStatus playerStatus = psWalking;
+	//float movementSpeed;
+	//UpdateMovementSpeed(playerStatus, movementSpeed);
+	//printString(movementSpeed);
+
+	Player player;
+	player.name = "Isaac";
+	player.health = 100.0f;
+	player.level = 1;
+	player.damage = 20.0f;
+
+	printString(player.name);
+	printString(player.health);
+	player.TakeDamage(25);
+	printString("Player takes damage");
+	printString(player.health);
+	player.DisplayLocation();
 
 	//Pause console to see results
 	system("pause");
@@ -149,4 +220,21 @@ string fromIntToString(int value) {
 	ss >> convertedValue;
 
 	return convertedValue;
+}
+
+//Updates player movement speed, using the switch case (more efficient than if-else)
+void UpdateMovementSpeed(PlayerStatus playerStatus, float& movementSpeed)
+{
+	
+	switch (playerStatus)
+	{
+	case psCrouched: movementSpeed = CrouchSpeed;
+		break;
+	case psWalking: movementSpeed = WalkSpeed;
+		break;
+	case psRunning: movementSpeed = runSpeed;
+		break;
+	default: movementSpeed = 0;
+		break;
+	}
 }
