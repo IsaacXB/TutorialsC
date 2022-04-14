@@ -36,6 +36,7 @@ int sum(int a, int b)
 	return a + b;
 }
 //enumerators, it's great for handling states
+
 enum PlayerStatus
 {
 	psCrouched,
@@ -56,6 +57,7 @@ void nestedLoop3x();
 void ifElseExample();
 string fromIntToString(int value);
 void UpdateMovementSpeed(PlayerStatus playerStatus, float& movementSpeed);
+void pointerExample();
 
 
 
@@ -86,6 +88,42 @@ struct Player {
 		cout << "X = " << location.x << ", Y = " << location.y << ", Z = " << location.z << endl;
 	}
 };
+
+//basic class example
+class Dog
+{
+//accessible from outside the class
+public:
+	//Constructor
+	Dog();
+	//De constructor
+	~Dog();
+	//class body
+	string name;
+	int age;
+	void Bark();
+
+//only accessible from inside the class scope
+private:
+
+};
+//Constructor Declaration
+Dog::Dog()
+{
+	name = "default";
+	age = 1;
+	Bark();
+}
+//function implementation
+void Dog::Bark()
+{
+	printString("Woof!");
+}
+//De constructor declaration
+Dog::~Dog()
+{
+}
+
 
 
 int main()
@@ -124,19 +162,21 @@ int main()
 	//UpdateMovementSpeed(playerStatus, movementSpeed);
 	//printString(movementSpeed);
 
-	Player player;
-	player.name = "Isaac";
-	player.health = 100.0f;
-	player.level = 1;
-	player.damage = 20.0f;
+	//Player player;
+	//player.name = "Isaac";
+	//player.health = 100.0f;
+	//player.level = 1;
+	//player.damage = 20.0f;
 
-	printString(player.name);
-	printString(player.health);
-	player.TakeDamage(25);
-	printString("Player takes damage");
-	printString(player.health);
-	player.DisplayLocation();
+	//printString(player.name);
+	//printString(player.health);
+	//player.TakeDamage(25);
+	//printString("Player takes damage");
+	//printString(player.health);
+	//player.DisplayLocation();
 
+	//pointerExample();
+	Dog dog;
 	//Pause console to see results
 	system("pause");
 
@@ -237,4 +277,19 @@ void UpdateMovementSpeed(PlayerStatus playerStatus, float& movementSpeed)
 	default: movementSpeed = 0;
 		break;
 	}
+}
+
+//function to create a pointer, assign the address of the variable we want to point to
+void pointerExample() {
+
+	int a = 100;
+	// the * after the variable type, declares a pointer
+	int* aPtr;
+	// a pointer needs the reference address of a variable
+	aPtr = &a;
+	// if you don't use the * before accesing the pointer, you will get the address
+	cout << "Pointer address= " << aPtr << endl;
+	// if you dereference the pointer by using the *, you will get the value
+	cout << "Pointer Value = " << *aPtr << endl;
+
 }
