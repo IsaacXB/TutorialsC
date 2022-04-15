@@ -35,6 +35,7 @@ void printString(int i)
 {
 	cout << i << endl;
 }
+
 //basic overload function example, with 1 parameter of type int
 void printString(string s,int i)
 {
@@ -61,6 +62,13 @@ enum MovementStatus
 	msRunning
 };
 
+struct Character
+{
+	Character();
+	string Name;
+	float Health;
+};
+
 // declare function prototypes
 char getYesNo();
 void askYesOrNoQuestion();
@@ -69,6 +77,7 @@ void ifElseExample();
 string fromIntToString(int value);
 void UpdateMovementSpeed(PlayerStatus playerStatus, float& movementSpeed);
 void pointerExample();
+
 
 
 
@@ -84,6 +93,7 @@ struct LocationVector
 	float y;
 	float z;
 };
+
 struct Player {
 	string name;
 	float health;
@@ -263,13 +273,24 @@ int main()
 	
 	// create a creature instance, set a name get the name, using the public setter and getter functions
 	// private properties are inaccessible directly from outside the class scope
-	Creature creature;
-	creature.SetName("Zombie");
-	printString(creature.GetName());
-	creature.TakeDamage(100.0f);
-	creature.GetHealth();
-	// create instance class from derived creature class
-	Goblin goblin;
+
+	//Creature creature;
+	//creature.SetName("Zombie");
+	//printString(creature.GetName());
+	//creature.TakeDamage(100.0f);
+	//creature.GetHealth();
+	//// create instance class from derived creature class
+	//Goblin goblin;
+
+	//Stack Memory and Heap Memory
+	//Dynamically create an object that will be handled in the heap memory
+	//the pointer will be created in the stack, but it will be referenced to the memory address of the variable in the heap memory
+	Character* ptrToCharacter = new Character();
+	printString(ptrToCharacter->Name);
+
+	//When you create objects dynamically, you will need to delete it from the heap memory
+	//Otherwise it will create a memory leak
+	delete ptrToCharacter;
 
 	//Pause console to see results
 	system("pause");
@@ -480,4 +501,10 @@ void Creature::TakeDamage(float damage)
 float Creature::GetHealth()
 {
 	return Health;
+}
+
+Character::Character()
+{
+	Name = "Default";
+	Health = 100.0f;
 }
