@@ -215,6 +215,15 @@ Goblin::Goblin() {
 	printString("Derived class Goblin has been created!");
 }
 
+// static variables and objects (class) will always be available in memory
+// even after it gets out of scope, it lives past the function
+void UpdateCounter()
+{
+	static int counter = 0;
+	counter++;
+	printString(counter);
+}
+
 int main()
 {
 	//using namespace std, the :: is not longer required for that library functions such as cout and endl
@@ -285,21 +294,25 @@ int main()
 	//// create instance class from derived creature class
 	//Goblin goblin;
 
-	//Stack Memory and Heap Memory
-	//Dynamically create an object that will be handled in the heap memory
-	//the pointer will be created in the stack, but it will be referenced to the memory address of the variable in the heap memory
-	Character* ptrToCharacter = new Character();
-	//dereference allows to access properties and functions, use ->
-	printString(ptrToCharacter->Name);
+	////Stack Memory and Heap Memory
+	////Dynamically create an object that will be handled in the heap memory
+	////the pointer will be created in the stack, but it will be referenced to the memory address of the variable in the heap memory
+	//Character* ptrToCharacter = new Character();
+	////dereference allows to access properties and functions, use ->
+	//printString(ptrToCharacter->Name);
 
-	//When you create objects dynamically, you will need to delete it from the heap memory
-	//Otherwise it will create a memory leak
-	delete ptrToCharacter;
+
+	////When you create objects dynamically, you will need to delete it from the heap memory
+	////Otherwise it will create a memory leak
+	//delete ptrToCharacter;
+
+
+	//calling a function with a static variable, tha variable will remain in memory even outside the function scope
+	UpdateCounter();
+	UpdateCounter();
 
 	//Pause console to see results
 	system("pause");
-
-
 
 }
 
