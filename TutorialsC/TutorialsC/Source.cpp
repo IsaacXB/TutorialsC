@@ -165,35 +165,42 @@ private:
 
 };
 
-Cat::Cat()
+
+
+// class example with private and protected properties
+class Creature
 {
-	printString("Cat is created");
+	// visible outside the class scope
+public:
+	Creature();
+	~Creature();
+	void SetName(string name);
+	string GetName();
+	void TakeDamage(float damage);
+	float GetHealth();
+	//visible inside the class scope only
+private:
+	string Name;
+	float Health;
+	//visible to inside the class scope and derived classes only
+protected:
+	int NumberOfLimbs;
+};
+
+//derived class from creature
+class Goblin : public Creature {
+public:
+	Goblin();
+
+};
+
+Goblin::Goblin() {
+	//protected properties from are accessible 
+	NumberOfLimbs = 5;
+	//Private properties from parent are unaccessible
+	//Name = "unaccessible";
+	printString("Derived class Goblin has been created!");
 }
-
-// this declaration will avoid the default constructor from parent class
-Cat::Cat(string name, int age, int numberOfLimbs)
-	: Animal(name, age, numberOfLimbs)
-{
-	Speak();
-	Report();
-}
-
-// this declaration will call the default constructor from parent class, plus the overloaded constructor
-//Cat::Cat(string name, int age, int numberOfLimbs)
-//{
-//	Animal(name, age, numberOfLimbs);
-//	Speak();
-//}
-
-void Cat::Speak()
-{
-	printString("Miauu!");
-}
-
-Cat::~Cat()
-{
-}
-
 
 int main()
 {
@@ -244,15 +251,26 @@ int main()
 	//printString(player.health);
 	//player.DisplayLocation();
 
-	//pointerExample();
-	//class example - create instance
-	Animal animal;
-	//class example with overload - create instance with parameters
-	Animal animal2( "Koki", 8, 4 );
-	// child class instance from Animal
-	Cat cat;
-	// child class with parameters will use the overloaded constructor
-	Cat cat2("Mile", 6, 4);
+	////pointerExample();
+	////class example - create instance
+	//Animal animal;
+	////class example with overload - create instance with parameters
+	//Animal animal2( "Koki", 8, 4 );
+	//// child class instance from Animal
+	//Cat cat;
+	//// child class with parameters will use the overloaded constructor
+	//Cat cat2("Mile", 6, 4);
+	
+	// create a creature instance, set a name get the name, using the public setter and getter functions
+	// private properties are inaccessible directly from outside the class scope
+	Creature creature;
+	creature.SetName("Zombie");
+	printString(creature.GetName());
+	creature.TakeDamage(100.0f);
+	creature.GetHealth();
+	// create instance class from derived creature class
+	Goblin goblin;
+
 	//Pause console to see results
 	system("pause");
 
@@ -370,6 +388,35 @@ void pointerExample() {
 
 }
 
+Cat::Cat()
+{
+	printString("Cat is created");
+}
+
+// this declaration will avoid the default constructor from parent class
+Cat::Cat(string name, int age, int numberOfLimbs)
+	: Animal(name, age, numberOfLimbs)
+{
+	Speak();
+	Report();
+}
+
+// this declaration will call the default constructor from parent class, plus the overloaded constructor
+//Cat::Cat(string name, int age, int numberOfLimbs)
+//{
+//	Animal(name, age, numberOfLimbs);
+//	Speak();
+//}
+
+void Cat::Speak()
+{
+	printString("Miauu!");
+}
+
+Cat::~Cat()
+{
+}
+
 Animal::Animal()
 {
 	Name = "Default";
@@ -378,6 +425,7 @@ Animal::Animal()
 	printString("An animal is born");
 	Report();
 }
+
 Animal::Animal(string name, int age, int numberOfLimbs):
 	Name(name), Age(age), NumberOfLimbs(numberOfLimbs)
 {
@@ -387,8 +435,49 @@ Animal::Animal(string name, int age, int numberOfLimbs):
 	printString("An animal is born");
 	Report();
 }
+
 void Animal::Report() {
 	printString("Name = "+Name);
 	printString("Age = ",Age);
 	printString("Number of Limbs= ", NumberOfLimbs);
+}
+
+
+Creature::Creature()
+{
+	printString("A creature has been created!");
+	Name = "Default";
+	Health = 100.0f;
+	NumberOfLimbs = 4;
+}
+
+Creature::~Creature()
+{
+}
+
+
+void Creature::SetName(string name)
+{
+	Name = name;
+}
+
+string Creature::GetName()
+{
+	return Name;
+}
+
+void Creature::TakeDamage(float damage)
+{
+	Health -= damage;
+	if (Health <= 0)
+	{
+		printString("The creature has died!");
+		//Call Destructor
+		this->~Creature();
+	}
+}
+
+float Creature::GetHealth()
+{
+	return Health;
 }
