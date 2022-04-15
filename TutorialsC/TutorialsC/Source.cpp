@@ -64,7 +64,10 @@ enum MovementStatus
 
 struct Character
 {
+	//constructor
 	Character();
+	// destructor - will be called when deleting objects
+	~Character();
 	string Name;
 	float Health;
 };
@@ -140,7 +143,7 @@ void Dog::Bark()
 {
 	printString("Woof!");
 }
-//De constructor declaration
+//Destructor declaration
 Dog::~Dog()
 {
 }
@@ -286,6 +289,7 @@ int main()
 	//Dynamically create an object that will be handled in the heap memory
 	//the pointer will be created in the stack, but it will be referenced to the memory address of the variable in the heap memory
 	Character* ptrToCharacter = new Character();
+	//dereference allows to access properties and functions, use ->
 	printString(ptrToCharacter->Name);
 
 	//When you create objects dynamically, you will need to delete it from the heap memory
@@ -507,4 +511,10 @@ Character::Character()
 {
 	Name = "Default";
 	Health = 100.0f;
+	printString("Character has been created!");
+}
+
+Character::~Character()
+{
+	printString("Character deleted from heap memory!");
 }
