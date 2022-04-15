@@ -224,6 +224,32 @@ void UpdateCounter()
 	printString(counter);
 }
 
+//Inheritance - virtual functions and overriding functions in child classes
+class Parent
+{
+public:
+	virtual void Greet()
+	{
+		printString("Hi this is the parent class function");
+	}
+
+};
+
+class Child : public Parent
+{
+public:
+	virtual void Greet() {
+		printString("Hi this is the child class function");
+	}
+};
+class GrandChild : public Child
+{
+public:
+	virtual void Greet() {
+		printString("Hi this is the grand child class function");
+	}
+};
+
 int main()
 {
 	//using namespace std, the :: is not longer required for that library functions such as cout and endl
@@ -307,9 +333,17 @@ int main()
 	//delete ptrToCharacter;
 
 
-	//calling a function with a static variable, tha variable will remain in memory even outside the function scope
-	UpdateCounter();
-	UpdateCounter();
+	////calling a function with a static variable, the variable will remain in memory even outside the function scope
+	//UpdateCounter();
+	//UpdateCounter();
+
+	//Inheritance create instance of parent, child and grand child, and see the overridden function Greek
+	Parent parent;
+	parent.Greet();
+	Child child;
+	child.Greet();
+	GrandChild grandChild;
+	grandChild.Greet();
 
 	//Pause console to see results
 	system("pause");
