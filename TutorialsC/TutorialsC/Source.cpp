@@ -238,17 +238,58 @@ public:
 class Child : public Parent
 {
 public:
-	virtual void Greet() {
+	virtual void Greet() override {
 		printString("Hi this is the child class function");
 	}
 };
+
 class GrandChild : public Child
 {
 public:
-	virtual void Greet() {
+	virtual void Greet() override {
 		printString("Hi this is the grand child class function");
 	}
 };
+
+// Polymorphism basic example - Parent -> Object
+class Object
+{
+public:
+	virtual void BeginPlay();
+};
+
+void Object::BeginPlay()
+{
+	printString("Parent Object begin play called.");
+}
+
+//child object -> Actor
+class Actor : public Object
+{
+public:
+	virtual void BeginPlay() override;
+
+};
+
+void Actor::BeginPlay()
+{
+	printString("Child Actor Object begin play called.");
+
+}
+
+//grand child object -> Pawn
+class Pawn : public Actor
+{
+public:
+	virtual void BeginPlay();
+};
+
+void Pawn::BeginPlay()
+{
+	printString("Grand Child Pawn Object begin play called.");
+
+}
+
 
 int main()
 {
@@ -337,14 +378,33 @@ int main()
 	//UpdateCounter();
 	//UpdateCounter();
 
-	//Inheritance create instance of parent, child and grand child, and see the overridden function Greek
-	Parent parent;
-	parent.Greet();
-	Child child;
-	child.Greet();
-	GrandChild grandChild;
-	grandChild.Greet();
+	////Inheritance create instance of parent, child and grand child, and see the overridden function Greek
+	//Parent parent;
+	//parent.Greet();
+	//Child child;
+	//child.Greet();
+	//GrandChild grandChild;
+	//grandChild.Greet();
 
+
+	//create pointers to each Object from Parent class
+	Object* ptrObject = new Object;
+	Actor* ptrActor = new Actor;
+	Pawn* ptrPawn = new Pawn;
+
+
+	//Polymorphism allows this array of type objects to hold all derived objects
+	Object* ObjectArray[] = { ptrObject, ptrActor, ptrPawn };
+
+	for (int i = 0; i < 3; i++)
+	{
+		//when calling the function the overridden function will be called for child objects
+		ObjectArray[i]->BeginPlay();
+	}
+
+	delete ptrObject;
+	delete ptrActor;
+	delete ptrPawn;
 	//Pause console to see results
 	system("pause");
 
@@ -565,3 +625,4 @@ Character::~Character()
 {
 	printString("Character deleted from heap memory!");
 }
+
