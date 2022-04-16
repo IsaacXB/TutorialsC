@@ -4,6 +4,11 @@
 #include <sstream>
 // string library
 #include <string>
+
+#include "Object.h";
+#include "Actor.h";
+#include "Pawn.h"
+
 using namespace std;
 
 //basic function example
@@ -251,44 +256,6 @@ public:
 	}
 };
 
-// Polymorphism basic example - Parent -> Object
-class Object
-{
-public:
-	virtual void BeginPlay();
-};
-
-void Object::BeginPlay()
-{
-	printString("Parent Object begin play called.");
-}
-
-//child object -> Actor
-class Actor : public Object
-{
-public:
-	virtual void BeginPlay() override;
-
-};
-
-void Actor::BeginPlay()
-{
-	printString("Child Actor Object begin play called.");
-
-}
-
-//grand child object -> Pawn
-class Pawn : public Actor
-{
-public:
-	virtual void BeginPlay();
-};
-
-void Pawn::BeginPlay()
-{
-	printString("Grand Child Pawn Object begin play called.");
-
-}
 
 
 int main()
